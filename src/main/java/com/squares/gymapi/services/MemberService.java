@@ -6,6 +6,7 @@ import com.squares.gymapi.dto.MemberRequestDTO;
 import com.squares.gymapi.dto.MemberResponseDTO;
 import com.squares.gymapi.repositories.MemberRepository;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ public class MemberService {
     
     public MemberIdDTO create(MemberRequestDTO memberRequestDTO) {
         Member member = new Member();
+        
         member.setName(memberRequestDTO.name());
         member.setDateOfBirth(memberRequestDTO.dateOfBirth());
         member.setGender(memberRequestDTO.gender());
@@ -28,20 +30,21 @@ public class MemberService {
         member.setState(memberRequestDTO.state());
         member.setPhoneNumber(memberRequestDTO.phoneNumber());
         member.setEmail(memberRequestDTO.email());
-        member.setJoinDate(LocalDateTime.now());
         member.setMembershipPlan(memberRequestDTO.membershipPlan());
+        
+        member.setJoinDate(LocalDateTime.now());
         member.setActive(Boolean.TRUE);
         
         Member createdMember = this.memberRepository.save(member);
         
-        return new MemberIdDTO(createdMember.getMemberId());
+        return new MemberIdDTO(createdMember.getId());
     }
     
     public MemberResponseDTO getMember(String id) {
         Optional<Member> memberSearchResult = this.memberRepository.findById(id);
         
         if (!memberSearchResult.isPresent()) {
-            throw new RuntimeException("The member do not exists.");
+            throw new RuntimeException("The member does not exists.");
         }
         
         Member resultMember = memberSearchResult.get();
@@ -60,5 +63,28 @@ public class MemberService {
                 resultMember.getEmail(),
                 resultMember.getMembershipPlan(),
                 resultMember.getActive());
+    }
+    
+    public List<MemberResponseDTO> getAllMembers() {
+        List<Member> allMembers = this.memberRepository.findAll();
+        
+        List<MemberResponseDTO> result = allMembers.stream().map(member -> {
+            return new MemberResponseDTO(
+                    member.getName(),
+                    member.getDateOfBirth(),
+                    member.getGender(),
+                    member.getAddress(),
+                    member.getNumber(),
+                    member.getUnit(),
+                    member.getZipCode(), 
+                    member.getCity(),
+                    member.getState(),
+                    member.getPhoneNumber(),
+                    member.getEmail(),
+                    member.getMembershipPlan(),
+                    member.getActive());
+        }).toList();
+        
+        return result;
     }
 }

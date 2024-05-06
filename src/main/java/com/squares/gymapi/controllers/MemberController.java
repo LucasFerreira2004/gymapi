@@ -5,6 +5,7 @@ import com.squares.gymapi.dto.MemberRequestDTO;
 import com.squares.gymapi.dto.MemberResponseDTO;
 import com.squares.gymapi.services.MemberService;
 import jakarta.validation.Valid;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,5 +32,10 @@ public class MemberController {
     public ResponseEntity<MemberResponseDTO> getMember(@PathVariable("id") String id) {
         MemberResponseDTO resultMember = this.memberService.getMember(id);
         return new ResponseEntity<>(resultMember, HttpStatus.OK);
+    }
+    
+    @GetMapping("/list")
+    public ResponseEntity<List<MemberResponseDTO>> listMembers() {
+        return new ResponseEntity<>(this.memberService.getAllMembers(), HttpStatus.OK);
     }
 }

@@ -16,7 +16,6 @@ public record MemberRequestDTO(
         @NotBlank String state,
         @NotBlank String phoneNumber,
         @NotBlank String email,
-        @NotBlank String membershipPlan,
-        @NotNull Boolean active
+        @NotBlank String membershipPlan
         ) {
 }

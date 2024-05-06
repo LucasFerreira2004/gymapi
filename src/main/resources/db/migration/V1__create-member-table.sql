@@ -1,5 +1,5 @@
 CREATE TABLE member (
-  member_id UUID PRIMARY KEY,
+  id VARCHAR(255) NOT NULL PRIMARY KEY,
   name VARCHAR(255) NOT NULL,
   date_of_birth DATE NOT NULL,
   gender CHAR(1) NOT NULL,

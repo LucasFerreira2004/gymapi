@@ -22,8 +22,8 @@ import lombok.Setter;
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "member_id")
-    private String memberId;
+    @Column(nullable = false)
+    private String id;
     
     @Column(nullable = false)
     private String name;
