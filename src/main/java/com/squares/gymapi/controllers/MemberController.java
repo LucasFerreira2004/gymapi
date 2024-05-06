@@ -5,7 +5,6 @@ import com.squares.gymapi.dto.MemberRequestDTO;
 import com.squares.gymapi.dto.MemberResponseDTO;
 import com.squares.gymapi.services.MemberService;
 import jakarta.validation.Valid;
-import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
